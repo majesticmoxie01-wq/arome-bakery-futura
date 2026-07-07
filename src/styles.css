@@ -94,35 +94,35 @@
   }
 }
 
-/* Custom cursor */
-@media (pointer: fine) {
-  * { cursor: none !important; }
-}
-
+/* Liquid cursor trail — real cursor stays visible */
 .cursor-dot {
   position: fixed;
   top: 0; left: 0;
-  width: 8px; height: 8px;
+  width: 22px; height: 22px;
   border-radius: 50%;
-  background: var(--gold);
+  background: radial-gradient(circle at 35% 35%, oklch(0.92 0.13 82 / 85%), oklch(0.78 0.14 72 / 45%) 55%, transparent 75%);
   pointer-events: none;
   z-index: 9999;
-  mix-blend-mode: difference;
-  transition: transform 0.15s ease, width 0.25s ease, height 0.25s ease;
+  filter: blur(2px) saturate(140%);
+  mix-blend-mode: multiply;
+  transition: width 0.35s ease, height 0.35s ease, opacity 0.3s ease;
+  will-change: transform;
 }
 .cursor-ring {
   position: fixed;
   top: 0; left: 0;
-  width: 40px; height: 40px;
+  width: 56px; height: 56px;
   border-radius: 50%;
-  border: 1px solid oklch(0.78 0.13 78 / 60%);
+  background: radial-gradient(circle, oklch(0.88 0.12 80 / 22%), transparent 65%);
   pointer-events: none;
   z-index: 9998;
-  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
-  box-shadow: 0 0 40px oklch(0.78 0.13 78 / 40%);
+  filter: blur(8px);
+  transition: width 0.5s cubic-bezier(0.19,1,0.22,1), height 0.5s cubic-bezier(0.19,1,0.22,1);
+  will-change: transform;
 }
-.cursor-hover .cursor-ring { width: 70px; height: 70px; border-color: var(--gold); }
-.cursor-hover .cursor-dot { transform: scale(0); }
+.cursor-hover .cursor-ring { width: 90px; height: 90px; }
+.cursor-hover .cursor-dot { width: 32px; height: 32px; }
+
 
 @utility grain {
   position: relative;
@@ -156,21 +156,29 @@
 }
 
 @keyframes float-slow {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-24px) rotate(4deg); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-24px); }
 }
 @keyframes float-med {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-18px) rotate(-3deg); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
 }
 @keyframes float-fast {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-12px) rotate(2deg); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes spin-360 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 @utility animate-float-slow { animation: float-slow 9s ease-in-out infinite; }
 @utility animate-float-med { animation: float-med 7s ease-in-out infinite; }
 @utility animate-float-fast { animation: float-fast 5.5s ease-in-out infinite; }
+@utility animate-spin-slow { animation: spin-360 18s linear infinite; }
+@utility animate-spin-med { animation: spin-360 14s linear infinite; }
+@utility animate-spin-rev { animation: spin-360 20s linear infinite reverse; }
+
 
 @utility glass {
   background: oklch(1 0 0 / 55%);
