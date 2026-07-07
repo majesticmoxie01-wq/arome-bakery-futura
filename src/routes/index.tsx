@@ -42,10 +42,7 @@ function Hero() {
         <div className="absolute inset-0 backdrop-blur-sm" />
         <div className="absolute inset-0 bg-gradient-to-b from-cream/30 via-cream/20 to-cream/70" />
       </motion.div>
-
-      <SlideInDessert src={dessert1} from="left" restLeft="22%" delay={0.5} />
-      <SlideInDessert src={dessert2} from="right" restLeft="78%" delay={0.7} />
-
+      
       <motion.div style={{ opacity }} className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1400px] flex-col items-center justify-center px-6 pt-32 pb-20 text-center">
         <Reveal>
           <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-ink/20 bg-cream/60 backdrop-blur px-4 py-2 text-[10px] tracking-[0.4em] uppercase">
@@ -92,35 +89,6 @@ function Hero() {
       </motion.div>
       <style>{`@keyframes scrollDown { 0% { transform: translateY(-100%); } 100% { transform: translateY(300%); } }`}</style>
     </section>
-  );
-}
-
-function SlideInDessert({
-  src,
-  from,
-  restLeft,
-  delay,
-}: {
-  src: string;
-  from: "left" | "right";
-  restLeft: string;
-  delay: number;
-}) {
-  const offscreenX = from === "left" ? -500 : 500;
-  return (
-    <motion.div
-      initial={{ x: offscreenX, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      transition={{ delay, duration: 1.3, ease: [0.19, 1, 0.22, 1] }}
-      style={{ left: restLeft }}
-      className="absolute top-1/2 z-20 w-[42vw] max-w-[420px] -translate-y-1/2"
-    >
-      <img
-        src={src}
-        alt=""
-        className="h-full w-full object-contain drop-shadow-[0_35px_70px_oklch(0.4_0.06_60_/_45%)]"
-      />
-    </motion.div>
   );
 }
 
