@@ -1,9 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import heroCroissant from "@/assets/hero-croissant.jpg";
-import dessert1 from "@/assets/hero-dessert-1.png"; // croissant on a plate
-import dessert2 from "@/assets/hero-dessert-2.png"; // second dessert
+import heroCroissant from "@/assets/hero-background.png";
 import interior from "@/assets/bakery-interior.jpg";
 import texture from "@/assets/texture-1.jpg";
 import baker from "@/assets/baker-hands.jpg";
@@ -41,8 +39,8 @@ function Hero() {
       {/* Cinematic backdrop */}
       <motion.div style={{ scale, y }} className="absolute inset-0">
         <img src={heroCroissant} alt="" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 backdrop-blur-md" />
-        <div className="absolute inset-0 bg-gradient-to-b from-cream/70 via-cream/40 to-cream" />
+        <div className="absolute inset-0 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-gradient-to-b from-cream/30 via-cream/20 to-cream/70" />
       </motion.div>
 
       <SlideInDessert src={dessert1} from="left" restLeft="22%" delay={0.5} />
