@@ -46,12 +46,8 @@ function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-cream/70 via-cream/40 to-cream" />
       </motion.div>
 
-      {/* Spinning desserts — self-rotating 360° */}
-      <SpinningDessert src={dessert1} className="left-[4%] top-[18%] w-[22vw] max-w-[240px] animate-float-slow" delay={0.4} spin="animate-spin-slow" parallax={30} />
-      <SpinningDessert src={dessert2} className="right-[6%] top-[14%] w-[20vw] max-w-[220px] animate-float-med" delay={0.6} spin="animate-spin-med" parallax={-40} />
-      <SpinningDessert src={dessert3} className="left-[10%] bottom-[16%] w-[18vw] max-w-[200px] animate-float-fast" delay={0.8} spin="animate-spin-rev" parallax={25} />
-      <SpinningDessert src={dessert4} className="right-[10%] bottom-[18%] w-[19vw] max-w-[210px] animate-float-med" delay={1.0} spin="animate-spin-slow" parallax={-30} />
-
+      <SlideInDessert src={dessert1} from="left" restLeft="22%" delay={0.5} />
+      <SlideInDessert src={dessert2} from="right" restLeft="78%" delay={0.7} />
 
       <motion.div style={{ opacity }} className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1400px] flex-col items-center justify-center px-6 pt-32 pb-20 text-center">
         <Reveal>
@@ -102,31 +98,31 @@ function Hero() {
   );
 }
 
-function SpinningDessert({ src, className, delay, spin, parallax }: { src: string; className?: string; delay: number; spin: string; parallax: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const onMove = (e: React.MouseEvent) => {
-    if (!ref.current) return;
-    const nx = (e.clientX / window.innerWidth - 0.5) * parallax;
-    const ny = (e.clientY / window.innerHeight - 0.5) * parallax;
-    ref.current.style.transform = `translate(${nx}px, ${ny}px)`;
-  };
+function SlideInDessert({
+  src,
+  from,
+  restLeft,
+  delay,
+}: {
+  src: string;
+  from: "left" | "right";
+  restLeft: string;
+  delay: number;
+}) {
+  const offscreenX = from === "left" ? -500 : 500;
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.5 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay, duration: 1.4, ease: [0.19, 1, 0.22, 1] }}
-      className={`absolute z-[1] transition-transform duration-500 ease-out ${className}`}
-      onMouseMove={onMove as any}
+      initial={{ x: offscreenX, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ delay, duration: 1.3, ease: [0.19, 1, 0.22, 1] }}
+      style={{ left: restLeft }}
+      className="absolute top-1/2 z-20 w-[42vw] max-w-[420px] -translate-y-1/2"
     >
-      <div ref={ref} className="transition-transform duration-500 ease-out">
-        <div className={spin}>
-          <img
-            src={src}
-            alt=""
-            className="h-full w-full object-contain drop-shadow-[0_35px_70px_oklch(0.4_0.06_60_/_45%)]"
-          />
-        </div>
-      </div>
+      <img
+        src={src}
+        alt=""
+        className="h-full w-full object-contain drop-shadow-[0_35px_70px_oklch(0.4_0.06_60_/_45%)]"
+      />
     </motion.div>
   );
 }
