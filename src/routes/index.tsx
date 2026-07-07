@@ -2,12 +2,14 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import heroCroissant from "@/assets/hero-croissant.jpg";
-import pastry1 from "@/assets/pastry-1.png";
-import pastry2 from "@/assets/pastry-2.png";
-import pastry3 from "@/assets/pastry-3.png";
+import dessert1 from "@/assets/hero-dessert-1.png";
+import dessert2 from "@/assets/hero-dessert-2.png";
+import dessert3 from "@/assets/hero-dessert-3.png";
+import dessert4 from "@/assets/hero-dessert-4.png";
 import interior from "@/assets/bakery-interior.jpg";
 import texture from "@/assets/texture-1.jpg";
 import baker from "@/assets/baker-hands.jpg";
+
 import { MagneticButton } from "@/components/MagneticButton";
 import { Reveal, SplitHeading } from "@/components/Reveal";
 import { products } from "@/lib/products";
@@ -45,10 +47,12 @@ function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-cream/70 via-cream/40 to-cream" />
       </motion.div>
 
-      {/* Floating pastries */}
-      <FloatingPastry src={pastry1} className="left-[6%] top-[22%] w-[16vw] max-w-[220px] animate-float-slow" delay={0.4} parallax={40} />
-      <FloatingPastry src={pastry2} className="right-[8%] top-[18%] w-[14vw] max-w-[200px] animate-float-med" delay={0.7} parallax={-60} />
-      <FloatingPastry src={pastry3} className="left-[12%] bottom-[14%] w-[10vw] max-w-[150px] animate-float-fast" delay={1} parallax={30} />
+      {/* Spinning desserts — self-rotating 360° */}
+      <SpinningDessert src={dessert1} className="left-[4%] top-[18%] w-[22vw] max-w-[240px] animate-float-slow" delay={0.4} spin="animate-spin-slow" parallax={30} />
+      <SpinningDessert src={dessert2} className="right-[6%] top-[14%] w-[20vw] max-w-[220px] animate-float-med" delay={0.6} spin="animate-spin-med" parallax={-40} />
+      <SpinningDessert src={dessert3} className="left-[10%] bottom-[16%] w-[18vw] max-w-[200px] animate-float-fast" delay={0.8} spin="animate-spin-rev" parallax={25} />
+      <SpinningDessert src={dessert4} className="right-[10%] bottom-[18%] w-[19vw] max-w-[210px] animate-float-med" delay={1.0} spin="animate-spin-slow" parallax={-30} />
+
 
       <motion.div style={{ opacity }} className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1400px] flex-col items-center justify-center px-6 pt-32 pb-20 text-center">
         <Reveal>
@@ -99,7 +103,7 @@ function Hero() {
   );
 }
 
-function FloatingPastry({ src, className, delay, parallax }: { src: string; className?: string; delay: number; parallax: number }) {
+function SpinningDessert({ src, className, delay, spin, parallax }: { src: string; className?: string; delay: number; spin: string; parallax: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const onMove = (e: React.MouseEvent) => {
     if (!ref.current) return;
@@ -109,18 +113,25 @@ function FloatingPastry({ src, className, delay, parallax }: { src: string; clas
   };
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.6 }}
+      initial={{ opacity: 0, scale: 0.5 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay, duration: 1.4, ease: [0.19, 1, 0.22, 1] }}
       className={`absolute z-[1] transition-transform duration-500 ease-out ${className}`}
       onMouseMove={onMove as any}
     >
       <div ref={ref} className="transition-transform duration-500 ease-out">
-        <img src={src} alt="" className="h-full w-full object-contain drop-shadow-[0_30px_60px_oklch(0.4_0.05_60_/_35%)]" />
+        <div className={spin}>
+          <img
+            src={src}
+            alt=""
+            className="h-full w-full object-contain drop-shadow-[0_35px_70px_oklch(0.4_0.06_60_/_45%)]"
+          />
+        </div>
       </div>
     </motion.div>
   );
 }
+
 
 function Marquee() {
   const items = ["Croissant 1930", "· Honey Butter Toast", "· Shokupan", "· Pistachio Escargot", "· Miso Bacon", "· Almond Croissant", "· Pain au Chocolat"];
