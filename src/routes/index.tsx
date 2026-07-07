@@ -2,7 +2,6 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import heroCroissant from "@/assets/hero-croissant.jpg";
-import heroCroissant from "@/assets/hero-croissant.jpg";
 import dessert1 from "@/assets/hero-dessert-1.png"; // croissant on a plate
 import dessert2 from "@/assets/hero-dessert-2.png"; // second dessert
 import interior from "@/assets/bakery-interior.jpg";
