@@ -4,7 +4,7 @@ import { useRef } from "react";
 import interior from "@/assets/bakery-interior.jpg";
 import texture from "@/assets/texture-1.jpg";
 import baker from "@/assets/baker-hands.jpg";
-import bakeryLoop from "@/assets/hero-bakery-loop.mp4.asset.json";
+import heroVideo from "@/assets/hero-bakery-loop.mp4";
 
 import { MagneticButton } from "@/components/MagneticButton";
 import { Reveal, SplitHeading } from "@/components/Reveal";
@@ -39,7 +39,7 @@ function Hero() {
       {/* Cinematic bakery loop */}
       <motion.div style={{ scale, y }} className="absolute inset-0">
         <video
-          src={bakeryLoop.url}
+          src={heroVideo}
           autoPlay
           muted
           loop
