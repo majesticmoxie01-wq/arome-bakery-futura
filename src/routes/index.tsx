@@ -47,8 +47,7 @@ function Hero() {
           preload="auto"
           className="h-full w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/35 to-background/85" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--color-background)_95%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/40" />
       </motion.div>
 
       <motion.div style={{ opacity }} className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1400px] flex-col items-center justify-center px-6 pt-32 pb-20 text-center">
